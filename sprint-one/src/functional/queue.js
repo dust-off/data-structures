@@ -13,6 +13,7 @@ var Queue = function() {
   };
 
   someInstance.size = function() {
+    return 0;
   };
 
   return someInstance;
