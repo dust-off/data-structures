@@ -15,16 +15,16 @@ var extend = function(to, from) {
 };
 
 var stackMethods = {
-  size : function() {
+  size: function() {
     return this.counter;
   },
   
-  push : function(value) {
+  push: function(value) {
     this.data[this.counter] = value;
     this.counter++;
   },
   
-  pop : function() {
+  pop: function() {
     var popped;
     if (this.counter > 0) {
       this.counter--;
