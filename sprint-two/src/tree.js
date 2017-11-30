@@ -12,22 +12,15 @@ var treeMethods = {};
 
 treeMethods.addChild = function(value) {
   this.children.push(Tree(value));
-  console.log(this);
 };
 
 treeMethods.contains = function(target) {
   var truthy = false;
   var recurSearch = function(node) {
-    // console.log('node = ', node);
     if (node.value === target) {
       truthy = true;
       return true;
     } else if (node.children) {
-      // for (var x = 0; x < node.children.length; x++) {
-      //   if (recurSearch(node.children[x])) {
-      //     return true;
-      //   } 
-      // }
       node.children.forEach(function(child) {
         return recurSearch(child);
       });
@@ -48,4 +41,9 @@ var extend = function(to, from) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ 
+ - addChild() = 0(1);
+ 
+ - contains() = 0(n);
+ 
  */
