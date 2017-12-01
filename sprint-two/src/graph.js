@@ -2,12 +2,7 @@
 
 // Instantiate a new graph
 var Graph = function() {
-  this.container = {
-    // value: {2 : true, 5 : true}
-    //2 : {3 : true},
-    //1 : {},
-    //3 : {2 : true}
-  };
+  this.container = {};
 };
 
 // Add a node to the graph, passing in the node's value.
@@ -24,17 +19,11 @@ Graph.prototype.contains = function(node) {
 Graph.prototype.removeNode = function(node) {
   delete this.container[node];
   var disconnect = function (key) {
-    console.log(this);
     if (this.container[key][node]) {
       delete this.container[key][node];
     }
   };
-  this.forEachNode(disconnect.bind(this));
-  // for (var key in this.container) {
-  //   if (this.container[key][node]) {
-  //     delete this.container[key][node];
-  //   }
-  //}
+  this.forEachNode(disconnect);
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
@@ -67,7 +56,7 @@ Graph.prototype.forEachNode = function(cb) {
   //for each key in our container do the cb
   for (var key in this.container) {
     // console.log(this);
-    cb(key);
+    cb.call(this, key);
   }
   
 };
