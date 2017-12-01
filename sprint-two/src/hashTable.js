@@ -54,4 +54,7 @@ HashTable.prototype.remove = function(k) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ 
+ -insert, retrieve, remove : If it's the first item at that hash -- O(1);
+                           : If it's not the first -- 0(n) to the index, 0(1) to the table;
  */

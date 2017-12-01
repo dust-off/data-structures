@@ -18,7 +18,8 @@ Graph.prototype.contains = function(node) {
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
   delete this.container[node];
-  var disconnect = function (key) {
+  var disconnect = key => {
+    //removes the need to either bind this at disconnect or call within forEachNode.
     if (this.container[key][node]) {
       delete this.container[key][node];
     }
@@ -56,7 +57,7 @@ Graph.prototype.forEachNode = function(cb) {
   //for each key in our container do the cb
   for (var key in this.container) {
     // console.log(this);
-    cb.call(this, key);
+    cb(key);
   }
   
 };
