@@ -22,19 +22,19 @@ Graph.prototype.contains = function(node) {
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
-  console.log(this);
   delete this.container[node];
-  // var disconnect = function (key) {
-  //   if (this.container[key][node]) {
-  //     delete this.container[key][node];
-  //   }
-  // };
-  // this.forEachNode(disconnect);
-  for (var key in this.container) {
+  var disconnect = function (key) {
+    console.log(this);
     if (this.container[key][node]) {
       delete this.container[key][node];
     }
-  }
+  };
+  this.forEachNode(disconnect);
+  // for (var key in this.container) {
+  //   if (this.container[key][node]) {
+  //     delete this.container[key][node];
+  //   }
+  // }
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
@@ -66,6 +66,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 Graph.prototype.forEachNode = function(cb) {
   //for each key in our container do the cb
   for (var key in this.container) {
+    // console.log(this);
     cb(key);
   }
   
@@ -73,6 +74,21 @@ Graph.prototype.forEachNode = function(cb) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ 
+ - addNode : O(1)
+ 
+ - contains : O(1)
+ 
+ - removeNode : O(n)
+ 
+ - hasEdge : O(1)
+ 
+ - addEdge : 0(n)
+ 
+ - removeEdge : O(n)
+ 
+ - forEachNode : O(n)
+ 
  */
 
 
