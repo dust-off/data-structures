@@ -2,29 +2,51 @@
 
 var HashTable = function() {
   this._limit = 8;
+  this.count = 0;
   this._storage = LimitedArray(this._limit);
 };
 
 HashTable.prototype.insert = function(k, v) {
-  console.log(k, ' . ', v);
+  var exists = false;
   var index = getIndexBelowMaxForKey(k, this._limit);
-  console.log('--------');
-  console.log(k.length);
-  console.log(getIndexBelowMaxForKey('bobbob', this._limit));
-  console.log(getIndexBelowMaxForKey('val2', this._limit));
-  console.log('--------');
-  
-  this._storage[index] = v; 
+  if (!this._storage[index]) {
+    this._storage[index] = [];
+    this._storage[index].push([k, v]);
+  } else {
+    for (var x = 0; x < this._storage[index].length; x++) {
+      if (this._storage[index][x][0] === k) {
+        this._storage[index][x][1] = v;
+        exists = true;
+      }
+    }
+    if (exists === false) {
+      this._storage[index].push([k, v]);
+    }
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  return this._storage[index];
+  var bucket = this._storage[index];
+  var result;
+  for (var i = 0; i < bucket.length; i++) {
+    if (bucket[i][0] === k) {
+      result = bucket[i][1];
+      i = bucket.length;
+    }
+  }
+  return result;
 };
 
 HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
-  delete this._storage[index];
+  var bucket = this._storage[index];
+  for (var i = 0; i < bucket.length; i++) {
+    if (bucket[i][0] === k) {
+      bucket[i] = [];
+      i = bucket.length;
+    }
+  }
 };
 
 
@@ -33,14 +55,3 @@ HashTable.prototype.remove = function(k) {
 /*
  * Complexity: What is the time complexity of the above functions?
  */
-
-
-// var v1 = 'val1';
-// var v2 = 'val2';
-// var oldHashFunction = window.getIndexBelowMaxForKey;
-// window.getIndexBelowMaxForKey = function() { return 0; };
-// hashTable.insert(v1, v1);
-// hashTable.insert(v2, v2);
-// expect(hashTable.retrieve(v1)).to.equal(v1);
-// expect(hashTable.retrieve(v2)).to.equal(v2);
-// window.getIndexBelowMaxForKey = oldHashFunction;
