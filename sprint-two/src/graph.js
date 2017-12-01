@@ -29,12 +29,12 @@ Graph.prototype.removeNode = function(node) {
       delete this.container[key][node];
     }
   };
-  // this.forEachNode(disconnect);
-  for (var key in this.container) {
-    if (this.container[key][node]) {
-      delete this.container[key][node];
-    }
-  }
+  this.forEachNode(disconnect.bind(this));
+  // for (var key in this.container) {
+  //   if (this.container[key][node]) {
+  //     delete this.container[key][node];
+  //   }
+  //}
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
