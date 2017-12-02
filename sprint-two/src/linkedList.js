@@ -2,21 +2,51 @@ var LinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
+  
+  list.addTo = function(value, direction) {
+    var samePos; //'head/tail';
+    var sameDir; //'previous/next';
+    var oppisitePos;
+    var oppisiteDir;
+    if (direction === 'tail') {
+      samePos = 'tail';
+      sameDir = 'previous';
+      oppisitePos = 'head';
+      oppisiteDir = 'next';
+    } else { //add to the head
+      samePos = 'head';
+      sameDir = 'next';
+      oppisitePos = 'tail';
+      oppisiteDir = 'previous';
+    }
+    var newNode = Node(value);
+    if (list.head === null) { //if it's the first node being added
+      list[oppisitePos] = newNode;
+    } else {
+      list[samePos][oppisiteDir] = newNode;
+      newNode[sameDir] = list[samePos];
+    }
+    list[samePos] = newNode;
+  };
 
   list.addToTail = function(value) {
-    var newNode = Node(value);
-    if (list.head === null) {
-      list.head = newNode;
-    } else {
-      list.tail.next = newNode;
-    }
-    list.tail = newNode;
+    this.addTo(value, 'tail');
+  };
+  
+  list.addToHead = function(value) {
+    this.addTo(value, 'head');
   };
 
   list.removeHead = function() {
     var formerHead = list.head;
     list.head = list.head.next;
     return formerHead.value;
+  };
+  
+  list.removeTail = function() {
+    var formerTail = list.tail;
+    list.tail = list.tail.previous;
+    return formerTail;    
   };
 
   list.contains = function(target) {
@@ -44,6 +74,7 @@ var Node = function(value) {
 
   node.value = value;
   node.next = null;
+  node.previous = null;
 
   return node;
 };
