@@ -40,12 +40,27 @@ binarySearchTreeMethods.insert = function(value) {
   }
 };
 
-binarySearchTreeMethods.contains = function() {
-  //
+binarySearchTreeMethods.contains = function(findThis) {
+  if (this.value === findThis) {
+    return true;
+  } else {
+    if (findThis < this.value) {
+      return this.contains.call(this.left, findThis);
+    } else if (findThis > this.value) {
+      return this.contains.call(this.right, findThis);
+    }
+  }
+  return false;
 };
 
 binarySearchTreeMethods.depthFirstLog = function(cb) {
-  //
+  cb(this.value);
+  if (this.left.value !== undefined) {
+    this.depthFirstLog.call(this.left, cb);
+  } 
+  if (this.right.value !== undefined) {
+    this.depthFirstLog.call(this.right, cb);
+  }
 };
 
 var extend = function(to, from) {
@@ -56,4 +71,12 @@ var extend = function(to, from) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ 
+ - insert : O(log(n))
+ 
+ - contains : O(log(n))
+ 
+ - depthFirst : linear
+  
  */
+
