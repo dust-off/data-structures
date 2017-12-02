@@ -41,4 +41,11 @@ describe('tree', function() {
     expect(tree.contains(8)).to.equal(true);
   });
 
+
+  //should test if child's parent value === parent
+  it('should give children correct references to their parent', function() {
+    tree.addChild(5);
+    tree.children[0].addChild(6);
+    expect(tree.children[0].children[0].parent.value).to.equal(5);
+  });
 });
