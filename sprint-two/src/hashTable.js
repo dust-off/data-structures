@@ -23,6 +23,12 @@ HashTable.prototype.insert = function(k, v) {
       this._storage[index].push([k, v]);
     }
   }
+  this.count++;
+  if (this.count / this._limit >= .75) {
+    // console.log(this.count);
+    //resize and re-establish
+    this.refactor(2);
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -47,9 +53,45 @@ HashTable.prototype.remove = function(k) {
       i = bucket.length;
     }
   }
+  this.count --;
+  if (this.count / this._limit >= .25 && this._limit > 8) {
+    // console.log(this.count);
+    //resize and re-establish
+    //this.refactor(.5);
+  }
 };
 
-
+HashTable.prototype.refactor = function(num) {
+  //store existing length
+  var length = this._limit * num;
+  //create a new hastable ???? push to array and then to an overwritten table
+  //console.log(this._storage);
+  var tempStorage = [];
+  for(var key in this._storage) {
+    console.log(key)
+  }
+  // for (var i = 0; i < this._limit; i++) {
+  //   if (this._storage[i] !== undefined) {
+  //     console.log(this._storage[i]);
+  //   }
+  // }
+  //for loop 6 vs 8
+  // for (var bucket in this._storage) {
+  //   console.log(bucket, ' . ', typeof bucket);
+  //   if (typeof bucket === 'function') {
+  //     console.log(bucket);
+  //   }
+    // bucket.forEach(item => {
+    //   arr.push([item[0], item[1]]);
+    // });
+  // }
+  // console.log(this._storage[2][0][0], ' . ', this._storage[2][0][1]);
+  //for each node
+    //add to the new hastable
+  //overwrite existing table
+  //double || halve stored length and set it in the new table
+};
+// Object.defineProperty(HashTable.prototype.get, enumerable, false)
 
 
 /*
