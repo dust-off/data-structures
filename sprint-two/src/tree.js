@@ -17,6 +17,7 @@ treeMethods.addChild = function(value) {
   //set the child's parent
   newTree.parent = this;
   this.children.push(newTree);
+  console.log(newTree);
 };
 
 treeMethods.contains = function(target) {
@@ -35,6 +36,11 @@ treeMethods.contains = function(target) {
   };
   recurSearch(this);   
   return truthy;
+};
+
+treeMethods.removeFromParent = function(target) {
+  //remove from target's parent
+  //depthFirst deletion of all children
 };
 
 
