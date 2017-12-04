@@ -1,5 +1,5 @@
 var logger = function(obj){
-  console.log(obj);
+  //console.log(obj);
 }
 
 
@@ -21,7 +21,10 @@ var BinarySearchTree = function(value) {
 var binarySearchTreeMethods = {};
 
 binarySearchTreeMethods.insert = function(value) {
-  logger('inserting: ', value)
+  if(!value) {
+    return -Infinity;
+  }
+  logger('inserting: ' + value)
   if (value === this.value) {
     logger('-value already exists');
     return -Infinity;
@@ -86,12 +89,14 @@ binarySearchTreeMethods.insert = function(value) {
       this.left = BinarySearchTree(value);
     }
   }
-  logger('finishing up with: ', value)
+  logger('finishing up with: ' + value)
+  // logger(this)
   logger('');
   return 1;
 };
 
 binarySearchTreeMethods.onBalance = function() {
+
   var toLeft = this.leftCounter || 1;
   var toRight = this.rightCounter || 1;
   if (toRight / toLeft >= 2 || toLeft / toRight >= 2) {
@@ -102,9 +107,9 @@ binarySearchTreeMethods.onBalance = function() {
     var func = function(value) { array.push(value); };
     this.depthFirstLog(func)
 
-    logger('     **belowME: ', array);
-    logger('    left : ', this.leftCounter);
-    logger('    right : ', this.rightCounter);
+    logger('     **belowME: ' + array);
+    logger('    left : ' + this.leftCounter);
+    logger('    right : ' + this.rightCounter);
 
     return array;
   }
@@ -161,20 +166,20 @@ var extend = function(to, from) {
   }
 };
 
-var testBinary = BinarySearchTree(9);
-logger('logging: ', testBinary.insert(3));
-logger('');
-logger('logging: ', testBinary.insert(3));
-logger('');
-logger('logging: ', testBinary.insert(1));
-logger('');
-
-logger('logging: ', testBinary.insert(12));
-logger('');
-logger('logging: ', testBinary.insert(15));
-logger('');
-logger('logging: ', testBinary.insert(19));
-logger('');
+// var testBinary = BinarySearchTree(9);
+// logger('logging: ', testBinary.insert(3));
+// logger('');
+// logger('logging: ', testBinary.insert(3));
+// logger('');
+// logger('logging: ', testBinary.insert(1));
+// logger('');
+//
+// logger('logging: ', testBinary.insert(12));
+// logger('');
+// logger('logging: ', testBinary.insert(15));
+// logger('');
+// logger('logging: ', testBinary.insert(19));
+// logger('');
 
 
 //*******************************

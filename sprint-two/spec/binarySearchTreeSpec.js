@@ -37,4 +37,31 @@ describe('binarySearchTree', function() {
     binarySearchTree.depthFirstLog(func);
     expect(array).to.eql([5, 2, 3, 7]);
   });
+
+  it('should rebalance when whe n neccessary on insert', function(){
+
+    var array = [];
+    var func = function(value) { array.push(value); };
+
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(3);
+    binarySearchTree.depthFirstLog(func);
+
+    expect(array).to.eql([5, 3, 9]);
+
+    array = [];
+    binarySearchTree.insert(1);
+    binarySearchTree.depthFirstLog(func);
+
+    expect(array).to.eql([5, 3, 1, 9]);
+
+    array = [];
+    binarySearchTree.insert(14);
+    binarySearchTree.insert(16);
+    binarySearchTree.insert(20);
+    binarySearchTree.depthFirstLog(func);
+
+    expect(array).to.eql([ 5, 3, 1, 16, 9, 14, 20]);
+    //if insert is wrong it will equal = 5, 3, 1, 9, 14, 16, 20
+  })
 });
