@@ -1,8 +1,12 @@
 var BinarySearchTree = function(value) {
+  var tracker;
   var obj = {
     value: value,
+    leftCounter: 0,
+    rightCounter: 0,
     left: {
       //value: 4
+      //depth: 0 + if(parent + 1);
       //left: {}
       //right: {}
     },
@@ -14,7 +18,7 @@ var BinarySearchTree = function(value) {
   };
   
   extend(obj, binarySearchTreeMethods);
-  
+  console.log(obj);
   return obj;
 };
 
@@ -23,20 +27,36 @@ var binarySearchTreeMethods = {};
 
 binarySearchTreeMethods.insert = function(value) {
   //decides if it should add to left or right
+  //set unbalanced after the ++
+  //if unblanced === me.value then rebalance
+  var highestUnblanced = this.onBalance(this);
+  if (highestUnblanced !== undefined) {
+    //rebalancer.call(this, highestUnbalanced);
+  }
   if (value === this.value) {
     return false;
   } else if (this.value < value) {
     if (this.right.value !== undefined) {
+      this.rightCounter ++;
       this.right.insert(value);  
     } else {
+      this.rightCounter ++;    
       this.right = BinarySearchTree(value);
     }
   } else {
     if (this.left.value !== undefined) {
+      this.leftCounter ++;
       this.left.insert(value);  
     } else {
+      this.leftCounter = this.leftCounter + 1;
       this.left = BinarySearchTree(value);
     }
+  }
+};
+
+binarySearchTreeMethods.onBalance = function(node) {
+  if (node.right.value / node.left.value >= 2 || node.left.value / node.right.value >= 2) {
+    return node.value;
   }
 };
 
